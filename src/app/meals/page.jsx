@@ -1,4 +1,17 @@
+import Link from "next/link";
 import MealSearchInput from "./components/MealSearchInput";
+import Image from "next/image";
+
+export const metadata = {
+  title: "All Meals",
+  
+  description: "Meals loaded from Mealdb",
+};
+
+
+
+
+
 export default async function Mealspage({searchParams}) {
   const query = await searchParams;
 
@@ -26,10 +39,19 @@ export default async function Mealspage({searchParams}) {
     {
         meals?.map((singleMeal) =>{
             return (
-               <div>
+               <div key={singleMeal?.idMeal}>
+                <Image src={singleMeal?.strMealThumb}
+                width={641}
+                height={641}
+                alt={singleMeal?.strMeal}
+                >
+
+                </Image>
+
+
                 <p className='text-2xl font-bold'>{singleMeal.strMeal}</p>
                 <p>{singleMeal.strInstructions}</p>
-
+              <Link href={`/meals/${singleMeal.idMeal}`}>Details</Link>
 
                  </div> 
             )
@@ -42,3 +64,4 @@ export default async function Mealspage({searchParams}) {
   
   );
 }
+
